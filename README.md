@@ -29,7 +29,7 @@ void corrana(const char * infname = "", int trackquality = 1)
 {
 // This function initializes the internal hiforest class which gives access to all the event variables, 
 // it just needs to be run once before trying to do correlations
-...
+
 }
 
 TH2D * TrackTrackSignal(double pttriglow , double pttrighigh , double ptasslow , double ptasshigh, 
@@ -41,7 +41,7 @@ TH2D * TrackTrackSignal(double pttriglow , double pttrighigh , double ptasslow ,
 // the 2D signal histogram. A few more histograms are created as a byproduct to classify the events.
 // The returned distribution is constructed in only one quadrant and reflected to all others thus will be
 // symmetric by construction.
-...
+
 }
 
 TH2D * TrackTrackBackground(double pttriglow , double pttrighigh , double ptasslow, double ptasshigh, 
@@ -51,6 +51,25 @@ TH2D * TrackTrackBackground(double pttriglow , double pttrighigh , double ptassl
 // with trigger and associate particles originating from different events. Here statfactor sets how many more
 // statistics the background should have, default 10, and the event mixing is done on consecutive events which
 // performs much better on pre-vzsorted forest files. 
-...
+
 }
 ```
+
+3. runcorr.C  
+              this code acts as the bridge between the command line and the correlations analysis.
+              it takes as parameters the file number, trackquality, list of root files, tag, multiplicity
+              cuts and trigger and associate pt cuts. It initializes the corrana class and creates an 
+              output file to store the generated signal and background histograms as well as a few more
+              for debugging purposes
+              
+4. runcorr.sh
+              this code acts as the bridge between condor and the runcorr.C code. It takes all arguments
+              from condor and passes them to runcorr.sh, it also moves the root files created by the job
+              to a scratch directory once the job is done
+               
+5. runcorr.condor
+              this is the condor submission script with wildcards for all arguments that are set by the
+              submit script
+              
+6. submit.sh
+              
