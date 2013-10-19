@@ -24,7 +24,7 @@ ln -s /path/to/HiForestAnalysis .
 2. corrana.C  this is the main code that loops through events and tracks to create correlation functions of them. 
               some of the main aspects are outlined below
 
-```C++
+```C
 void corrana(const char * infname = "", int trackquality = 1)
 {
 // This function initializes the internal hiforest class which gives access to all the event variables, 
@@ -32,8 +32,8 @@ void corrana(const char * infname = "", int trackquality = 1)
 
 }
 
-TH2D * TrackTrackSignal(double pttriglow , double pttrighigh , double ptasslow , double ptasshigh, 
-                        int centmin, int centmax, int nmin, int nmax, double vzrange)
+TH2D * TrackTrackSignal(double pttriglow , double pttrighigh , double ptasslow , double ptasshigh
+                        , int centmin, int centmax, int nmin, int nmax, double vzrange)
 {
 // This function loops through all the events in the file satisfying the centrality/multiplicity cut
 // within the vz range. Within each event passing these cuts it loops through all tracks that lie
@@ -55,21 +55,38 @@ TH2D * TrackTrackBackground(double pttriglow , double pttrighigh , double ptassl
 }
 ```
 
-3. runcorr.C  
+3.
+runcorr.C  
               this code acts as the bridge between the command line and the correlations analysis.
               it takes as parameters the file number, trackquality, list of root files, tag, multiplicity
               cuts and trigger and associate pt cuts. It initializes the corrana class and creates an 
               output file to store the generated signal and background histograms as well as a few more
               for debugging purposes
               
-4. runcorr.sh
+4.
+runcorr.sh
               this code acts as the bridge between condor and the runcorr.C code. It takes all arguments
               from condor and passes them to runcorr.sh, it also moves the root files created by the job
               to a scratch directory once the job is done
                
-5. runcorr.condor
+5.
+runcorr.condor
               this is the condor submission script with wildcards for all arguments that are set by the
               submit script
               
-6. submit.sh
-              
+6. 
+submit.sh
+              This is the most top level script that sets everything in motion. It gets its arguments
+              directly from the user and creates a submission folder in which it puts freshly compiled
+              correlations code, the condor submission script with the proper arguments, runcorr.sh 
+              that condor picks up, and the text file containing the list of forest. See examples below: 
+
+```Shell
+# this makes the list of root files we'll run on
+ls -1 /mnt/hadoop/cms/store/user/velicanu/PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted/*.root > PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted.txt
+head PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted.txt  # to see what's in here
+./submit.sh 1 PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted.txt PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted 130 160 1 2 1 2
+
+```
+
+
