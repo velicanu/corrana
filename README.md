@@ -122,7 +122,11 @@ condor_q <your username>
 ln -s /net/hidsk0001/d00/scratch/<your username>/corrhists/HIRun2013/merged/ input_hists
 hadd -f input_hists/PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted_trkqaul1_nmin130_nmax160_tptmin1_tptmax2_aptmin1_aptmax2.root /net/hidsk0001/d00/scratch/dav2105/corrhists/HIRun2013/unmerged/PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted_trkqaul1_nmin130_nmax160_tptmin1_tptmax2_aptmin1_aptmax2_*
 # this merges all the files created by condor into one
+# let's try to draw the correlation function
+root
+.x dplot.C+(1,"input_hists/PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted_trkqaul1_nmin130_nmax160_tptmin1_tptmax2_aptmin1_aptmax2.root","PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted",130,160,1,2,1,2,"corr")
+.x dplot.C+(1,"input_hists/PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted_trkqaul1_nmin130_nmax160_tptmin1_tptmax2_aptmin1_aptmax2.root","PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted",130,160,1,2,1,2,"proj")
 
 ```
 
-
+That's it! Happy correlating!
