@@ -16,10 +16,10 @@
 void dplot(int trkqual = 1, string filename = "" , string tag = "", int nmin = 130, int nmax = 160, float tptmin = 14, float tptmax = 16, float aptmin = 1, float aptmax = 2, string draw = "corr", float zmax = -1)
 {
 	TFile * file = new TFile(filename.data());
-	TH2D * Sig = (TH2D*)file->Get(Form("signal_trg%d_%d_ass%d_%d_cmin0_cmax41",(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax));
-	TH2D * Back = (TH2D*)file->Get(Form("background_trg%d_%d_ass%d_%d_cmin0_cmax41",(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax));
-	TH1D * Ntrig = (TH1D*)file->Get(Form("hmulttrg_trg%d_%d_ass%d_%d_cmin0_cmax41",(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax));
-	TH2D * Corr = (TH2D*)Sig->Clone(Form("correlation_trg%d_%d_ass%d_%d_cmin0_cmax41",(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax));
+	TH2D * Sig = (TH2D*)file->Get(Form("signal_trg%d_%d_ass%d_%d_nmin%d_nmax%d",(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax,nmin,nmax));
+	TH2D * Back = (TH2D*)file->Get(Form("background_trg%d_%d_ass%d_%d_nmin%d_nmax%d",(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax,nmin,nmax));
+	TH1D * Ntrig = (TH1D*)file->Get(Form("hmulttrg_trg%d_%d_ass%d_%d_nmin%d_nmax%d",(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax,nmin,nmax));
+	TH2D * Corr = (TH2D*)Sig->Clone(Form("correlation_trg%d_%d_ass%d_%d_nmin%d_nmax%d",(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax,nmin,nmax));
 	Corr->Divide(Back);
 	int x0 = Back->GetXaxis()->FindBin(0.0);
 	int y0 = Back->GetYaxis()->FindBin(0.0);
@@ -36,7 +36,7 @@ void dplot(int trkqual = 1, string filename = "" , string tag = "", int nmin = 1
 	int xmn = Corr->GetXaxis()->FindBin(2);
 	int xmx = Corr->GetXaxis()->FindBin(3.5);
 	double nbins = xmx - xmn + 1;
-	TH1D * Proj = Corr->ProjectionY(Form("projection_trg%d_%d_ass%d_%d_cmin0_cmax41",(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax),xmn,xmx,"e");
+	TH1D * Proj = Corr->ProjectionY(Form("projection_trg%d_%d_ass%d_%d_nmin%d_nmax%d",(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax),xmn,xmx,"e");
 	Proj->Scale(1/nbins);
   Proj->SetAxisRange(0,TMath::Pi());
   Proj->SetMarkerColor(2);
@@ -79,7 +79,7 @@ void dplot(int trkqual = 1, string filename = "" , string tag = "", int nmin = 1
     
   
 	
-	TCanvas * c1 = new TCanvas(Form("canvas_trg%d_%d_ass%d_%d_cmin0_cmax41",(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax));
+	TCanvas * c1 = new TCanvas(Form("canvas_trg%d_%d_ass%d_%d_nmin%d_nmax%d",(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax,nmin,nmax));
 	if(draw.compare("corr")==0)
 		Corr->Draw("Surf1");
 	if(draw.compare("proj")==0)
