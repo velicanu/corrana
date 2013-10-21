@@ -81,17 +81,17 @@ submit.sh
               correlations code, the condor submission script with the proper arguments, runcorr.sh 
               that condor picks up, and the text file containing the list of forest. See examples below: 
 
-```Shell
+```Python
 # this makes the list of root files we'll run on, remember to first cmsenv in some CMSSW to get root
 ls -1 /mnt/hadoop/cms/store/user/velicanu/PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted/*.root > PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted.txt
 head PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted.txt  # to see what's in here
 # the following command sets up a correlations job on the these input files, in 130-160 mult bin, with trigger and 
 # associate particles both in 1-2 GeV/c pT range
 ./submit.sh 1 PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted.txt PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted 130 160 1 2 1 2
-# this creates a directory, let's cd into it, it'll be called something like this:
+# this creates a directory, lets cd into it, it'll be called something like this:
 cd PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted_130_160_1_2_1_2_2013_10_21__10_00_35/
 ls
-# in here you'll find all the files necessary to run the analysis, runcorr.exe is the compiled code, let's try
+# in here you'll find all the files necessary to run the analysis, runcorr.exe is the compiled code, lets try
 # to run this interactively once to make sure there are no bugs and the code works
 ./runcorr.exe 0 1 PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted.txt PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted 130 160 1 2 1 2
 # you should see the following output
@@ -101,18 +101,18 @@ ls
 ls -tr /net/hidsk0001/d00/scratch/<your_username>/corrhists/HIRun2013/unmerged
 # should show you the last created file, something like:
 # PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted_trkqaul1_nmin130_nmax160_tptmin1_tptmax2_aptmin1_aptmax2_0.root
-# let's take a look inside 
+# lets take a look inside 
 root /net/hidsk0001/d00/scratch/<your_username>/corrhists/HIRun2013/unmerged/PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted_trkqaul1_nmin130_nmax160_tptmin1_tptmax2_aptmin1_aptmax2_0.root
 # now inside root:
 root [1] .ls
-// this should show a few histograms, let's take a look
+// this should show a few histograms, lets take a look
 root [4] signal_trg1_2_ass1_2_nmin130_nmax160->Draw("surf1")
 // this shows the uncorrected for detector acceptence signal distribution
 root [5] background_trg1_2_ass1_2_nmin130_nmax160->Draw("surf1")
 // this shows the data driven detector acceptance correction, by correlating tracks from different events
 root [6] corr_trg1_2_ass1_2_nmin130_nmax160->Draw("surf1")
 // this shows the correlation function, signal/background, from these limimted statistics, now that we see
-// that the correlation runs and there are no bugs let's submit it to condor
+// that the correlation runs and there are no bugs lets submit it to condor
 root [9] .q
 # back in the shell now
 condor_submit runcorr.condor
@@ -122,7 +122,7 @@ condor_q <your username>
 ln -s /net/hidsk0001/d00/scratch/<your username>/corrhists/HIRun2013/merged/ input_hists
 hadd -f input_hists/PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted_trkqaul1_nmin130_nmax160_tptmin1_tptmax2_aptmin1_aptmax2.root /net/hidsk0001/d00/scratch/dav2105/corrhists/HIRun2013/unmerged/PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted_trkqaul1_nmin130_nmax160_tptmin1_tptmax2_aptmin1_aptmax2_*
 # this merges all the files created by condor into one
-# let's try to draw the correlation function
+# lets try to draw the correlation function
 root
 .x dplot.C+(1,"input_hists/PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted_trkqaul1_nmin130_nmax160_tptmin1_tptmax2_aptmin1_aptmax2.root","PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted",130,160,1,2,1,2,"corr")
 .x dplot.C+(1,"input_hists/PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted_trkqaul1_nmin130_nmax160_tptmin1_tptmax2_aptmin1_aptmax2.root","PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted",130,160,1,2,1,2,"proj")
