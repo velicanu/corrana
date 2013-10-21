@@ -119,7 +119,9 @@ condor_submit runcorr.condor
 # now we wait for condor to finish, we can check the status by typing the following command
 condor_q <your username>
 # once all your jobs are done do the following commands
-mkdir -p /net/hidsk0001/d00/scratch/dav2105/corrhists/HIRun2013/merged
+ln -s /net/hidsk0001/d00/scratch/<your username>/corrhists/HIRun2013/merged/ input_hists
+hadd -f input_hists/PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted_trkqaul1_nmin130_nmax160_tptmin1_tptmax2_aptmin1_aptmax2.root /net/hidsk0001/d00/scratch/dav2105/corrhists/HIRun2013/unmerged/PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted_trkqaul1_nmin130_nmax160_tptmin1_tptmax2_aptmin1_aptmax2_*
+# this merges all the files created by condor into one
 
 ```
 
