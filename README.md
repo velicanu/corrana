@@ -104,6 +104,9 @@ ls -tr /net/hidsk0001/d00/scratch/<your_username>/corrhists/HIRun2013/unmerged
 # lets take a look inside 
 root /net/hidsk0001/d00/scratch/<your_username>/corrhists/HIRun2013/unmerged/PP-Run2010B-Apr21ReReco-HLT_PixelTracks_Multiplicity_sorted_trkqaul1_nmin130_nmax160_tptmin1_tptmax2_aptmin1_aptmax2_0.root
 # now inside root:
+```
+
+```C
 root [1] .ls
 // this should show a few histograms, lets take a look
 root [4] signal_trg1_2_ass1_2_nmin130_nmax160->Draw("surf1")
@@ -114,6 +117,9 @@ root [6] corr_trg1_2_ass1_2_nmin130_nmax160->Draw("surf1")
 // this shows the correlation function, signal/background, from these limimted statistics, now that we see
 // that the correlation runs and there are no bugs lets submit it to condor
 root [9] .q
+```
+
+```Python
 # back in the shell now
 condor_submit runcorr.condor
 # now we wait for condor to finish, we can check the status by typing the following command
