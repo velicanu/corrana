@@ -12,5 +12,7 @@ echo | awk -v tag=$4 -v user=$USER '{print "mkdir -p /net/hidsk0001/d00/scratch/
 echo | awk -v tag=$4 -v user=$USER '{print "mkdir -p /net/hidsk0001/d00/scratch/"user"/corrhists/HIRun2013/unmerged"}' | bash
 echo | awk -v tag=$4 -v user=$USER '{print "scp "tag"*.root hidsk0001:/net/hidsk0001/d00/scratch/"user"/corrhists/HIRun2013/unmerged"}'
 echo | awk -v tag=$4 -v user=$USER '{print "scp "tag"*.root hidsk0001:/net/hidsk0001/d00/scratch/"user"/corrhists/HIRun2013/unmerged"}' | bash
+echo | awk -v tag=$4 '{print "rm "tag"*.root"}'
+echo | awk -v tag=$4 '{print "rm "tag"*.root"}' | bash
 
 echo "job done successfully"
