@@ -46,14 +46,14 @@ void eplot(int trkqual = 1, string filename = "", int nmin = 130, int nmax = 160
 	// int rangedown = Proj->FindBin(0);
 	// int rangeup = Proj->FindBin(TMath::Pi());
 	//!
-	// for(int i = rangedown; i < rangeup + 1; i++){
+	for(int i = rangedown; i < rangeup + 1; i++){
 		// double value = Proj[imult][ipt]->GetBinContent(i);
-		// double error = Proj[imult][ipt]->GetBinError(i)*0.001;
+		double error = Proj->GetBinError(i)*0.001;
 		
 		// value = value - shift;
 		// Proj[imult][ipt]->SetBinContent(i,value);		
-		// Proj[imult][ipt]->SetBinError(i,error);		
-	// }
+		Proj->SetBinError(i,error);		
+	}
 	TF1 * fourier = addFitToCanvas(Proj);
 	float v2_low = sqrt(fourier->GetParameter(2));
 	cout<<"v2(1-2 GeV) = "<<v2_low<<endl;
