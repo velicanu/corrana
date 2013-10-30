@@ -43,8 +43,8 @@ void eplot(int trkqual = 1, string filename = "", int nmin = 130, int nmax = 160
   Proj->SetAxisRange(0,TMath::Pi());
   Proj->SetMarkerColor(2);
 	// double shift = Proj->GetMinimum();
-	// int rangedown = Proj->FindBin(0);
-	// int rangeup = Proj->FindBin(TMath::Pi());
+	int rangedown = Proj->FindBin(0);
+	int rangeup = Proj->FindBin(TMath::Pi());
 	//!
 	for(int i = rangedown; i < rangeup + 1; i++){
 		// double value = Proj[imult][ipt]->GetBinContent(i);
