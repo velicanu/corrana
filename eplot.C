@@ -13,11 +13,11 @@
 #include "/net/hisrv0001/home/dgulhan/run/CMSSW_4_4_4/src/UserCode/HiForest/V2/commonUtility.h"
 #include "FitHist.C"
 
-void dplot(int trkqual = 1, string filename = "", int nmin = 130, int nmax = 160, float tptmin = 14, float tptmax = 16, float aptmin = 1, float aptmax = 2, string draw = "corr", float zmax = -1)
+void eplot(int trkqual = 1, string filename = "", int nmin = 130, int nmax = 160, float tptmin = 14, float tptmax = 16, float aptmin = 1, float aptmax = 2, string draw = "corr", float zmax = -1)
 {
 	// HIHighPt_HIRun2011-15Apr2013-v1-HLT_HIFullTrack14_sort_trkqaul1_nmin185_nmax220_tptmin14_tptmax16_aptmin1_aptmax2.root
-	TFile * file = new TFile(filename.data());
-	TFile * file = new TFile(Form("%s_trkqaul%d_nmin%d_nmax%d_tptmin%d_tptmax%d_aptmin%d_aptmax%d.root",filename.data(),trkqual,nmin,nmax,(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax));
+	// TFile * file = new TFile(Form(filename.data());
+	TFile * file = new TFile(Form("input_hists/%s_trkqaul%d_nmin%d_nmax%d_tptmin%d_tptmax%d_aptmin%d_aptmax%d.root",filename.data(),trkqual,nmin,nmax,(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax));
 	TH2D * Sig = (TH2D*)file->Get(Form("signal_trg%d_%d_ass%d_%d_nmin%d_nmax%d",(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax,nmin,nmax));
 	TH2D * Back = (TH2D*)file->Get(Form("background_trg%d_%d_ass%d_%d_nmin%d_nmax%d",(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax,nmin,nmax));
 	TH1D * Ntrig = (TH1D*)file->Get(Form("hmulttrg_trg%d_%d_ass%d_%d_nmin%d_nmax%d",(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax,nmin,nmax));
@@ -99,11 +99,11 @@ void dplot(int trkqual = 1, string filename = "", int nmin = 130, int nmax = 160
 	// lv2->Draw("Same");
   if(draw.compare("corr")==0)
 	{
-    c1->SaveAs(Form("corr_trg%d_%d_ass%d_%d_nmin%d_nmax%d.png",(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax,nmin,nmax));
+    c1->SaveAs(Form("corr_%s_trg%d_%d_ass%d_%d_nmin%d_nmax%d.png",filename.data(),(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax,nmin,nmax));
   }
 	else if(draw.compare("proj")==0)
 	{
-    c1->SaveAs(Form("proj_trg%d_%d_ass%d_%d_nmin%d_nmax%d.png",(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax,nmin,nmax));
+    c1->SaveAs(Form("proj_%s_trg%d_%d_ass%d_%d_nmin%d_nmax%d.png",filename.data(),(int)tptmin,(int)tptmax,(int)aptmin,(int)aptmax,nmin,nmax));
 	}
 
 }
