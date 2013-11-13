@@ -322,6 +322,16 @@ TH2D * TrackTrackBackground(double pttriglow , double pttrighigh , double ptassl
       // if(c->evt.lumi<317 || c->evt.lumi>1014) continue;
       if(skipevent(vzrange,999999)) continue;
       
+      int thismixmult = 0;
+      for(int i = 0 ; i < c->track.nTrk ; ++i)
+      {
+        if(c->track.trkPt[i]>0.4&&fabs(c->track.trkEta[i])<2.4&&c->track.highPurity[i]&&fabs(c->track.trkDz1[i]/c->track.trkDzError1[i])<3&&fabs(c->track.trkDxy1[i]/c->track.trkDxyError1[i])<3&&c->track.trkPtError[i]/c->track.trkPt[i]<0.1) thismixmult++;
+      }
+      if(thismixmult<nmin || thismixmult>=nmax)
+      {
+        continue;
+      }
+    
       int fillcount = 0;
       //! for each passed track in the original event pair all the passed tracks in the new event and fill deta dphi
       int ntrkhere = 0;
