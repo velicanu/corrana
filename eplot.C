@@ -48,11 +48,11 @@ void eplot(int trkqual = 1, string filename = "", int nmin = 130, int nmax = 160
 	//!
 	for(int i = rangedown; i < rangeup + 1; i++){
 		// double value = Proj[imult][ipt]->GetBinContent(i);
-		double error = Proj->GetBinError(i)*0.001;
+		// double error = Proj->GetBinError(i)*0.001;
 		
 		// value = value - shift;
 		// Proj[imult][ipt]->SetBinContent(i,value);		
-		Proj->SetBinError(i,error);		
+		// Proj->SetBinError(i,error);		
 	}
 	TF1 * fourier = addFitToCanvas(Proj);
 	float v2_low = sqrt(fourier->GetParameter(2));
